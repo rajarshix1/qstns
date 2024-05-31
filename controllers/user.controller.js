@@ -1,6 +1,7 @@
 const userModel = require('../models/user.model')
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
+const  jwt  = require('jsonwebtoken');
 const signUp = async (data) => {
     try {
         let existingUser = await userModel.findOne({email: data?.email })
@@ -20,4 +21,28 @@ const signUp = async (data) => {
         console.log(error)
     }   
 }
-module.exports = {signUp}
+
+const login = async (data) => {
+try {
+    let existingUser = await userModel.findOne({email: data?.email })
+    if(!existingUser) throw new Error(`User not found`)
+    if(bcrypt.compare(existingUser.password, data.password)){
+        existingUser.password = undefined
+        const timeStamp = Date.now();
+        const sercret =  "secret";
+        console.log('sercret', sercret);
+        
+        const JWT = jwt.sign({
+            id: existingUser._id,
+            createdAt: timeStamp,
+            expiresAt: timeStamp + 1000 * 60 * 60 * 24 * 30,
+        },sercret , {expiresIn: "30d"});       
+         return {user:existingUser, token: JWT}
+    } else{
+        throw new Error(`Password mismatch`)
+    }
+} catch (error) {
+    
+}
+}
+module.exports = {signUp, login}
