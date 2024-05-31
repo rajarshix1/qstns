@@ -19,6 +19,7 @@ const signUp = async (data) => {
         return newUser
     } catch (error) {
         console.log(error)
+        return error
     }   
 }
 
@@ -45,4 +46,5 @@ try {
     return error
 }
 }
+
 module.exports = {signUp, login}
