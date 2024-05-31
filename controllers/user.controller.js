@@ -29,7 +29,7 @@ try {
     if(bcrypt.compare(existingUser.password, data.password)){
         existingUser.password = undefined
         const timeStamp = Date.now();
-        const sercret =  "secret";
+        const sercret =  process.env.JWTSECRET;
         console.log('sercret', sercret);
         
         const JWT = jwt.sign({
@@ -42,7 +42,7 @@ try {
         throw new Error(`Password mismatch`)
     }
 } catch (error) {
-    
+    return error
 }
 }
 module.exports = {signUp, login}

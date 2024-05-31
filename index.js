@@ -4,7 +4,7 @@ const app = express();
 const usersRouter = require('./routes/user.routes');
 const categoryRouter = require('./routes/category.routes');
 const questionRouter = require('./routes/question.routes');
-mongoose.connect('mongodb://localhost:27017/qstns', {
+mongoose.connect(process.env.DB_URL, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 }).then(()=>{
