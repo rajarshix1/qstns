@@ -4,7 +4,7 @@ const { getAllCategories , createCategory} = require('../controllers/category.co
 const categoryRouter = express.Router();
 categoryRouter.get('/get-all', async (req, res) => {
     try {
-        serverResponse(true, "Success", await getAllCategories, res, 200);
+        serverResponse(true, "Success", await getAllCategories(), res, 200);
       } catch (error) {
         serverResponse(false, "Error", error?.message, res, 400);
       }});

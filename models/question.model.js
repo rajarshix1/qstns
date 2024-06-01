@@ -8,14 +8,11 @@ const questionSchema = new mongoose.Schema({
         type: String,
         required: false,
     },
-    categoryId: [{
+    categoryIds: [{
         type: mongoose.Types.ObjectId,
         ref:"categories",
         required: true,
     }],
-    addedQstnCount: {
-        type: Number,
-    },
     createdAt: {
         type: Date,
         required: true,
