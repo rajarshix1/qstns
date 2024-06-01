@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const  jwt  = require('jsonwebtoken');
 const awsUpload = require('../helpers/awsUpload');
+///////////FOR SIGNING UP///////
 const signUp = async (data) => {
     try {
         let existingUser = await userModel.findOne({email: data?.email })
@@ -24,6 +25,7 @@ const signUp = async (data) => {
     }   
 }
 
+/////////////LOG IN/////////////
 const login = async (data) => {
 try {
     let existingUser = await userModel.findOne({email: data?.email })
@@ -49,6 +51,7 @@ try {
 }
 }
 
+/////////////FOR UPDATING USER'S DETAILS(PASSWORD NOT INCLUDED) /////////////
 const updateUser = async(user, data, file) => {
     try {
         console.log(Object.keys(data).length)

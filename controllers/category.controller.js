@@ -1,6 +1,7 @@
 const { default: mongoose } = require("mongoose")
 const categoryModel = require("../models/category.model")
 
+////TO FETCH ALL CATEGORIES//////
 const getAllCategories = async ()=>{
    try {
      const allCategories = await categoryModel.find({})
@@ -9,6 +10,8 @@ const getAllCategories = async ()=>{
     throw error
    }
 }
+
+//////TO CREATE A SINGLE CATEGORY///////////
 const createCategory = async (data)=>{
   try {
       const existing = await categoryModel.findOne({name: data.name})
@@ -22,6 +25,7 @@ const createCategory = async (data)=>{
   }
 }
 
+///////TO FETCH ONE CATEGORY AND ITS QUESTIONS////////
 const oneCategoryWithQuestions = async (data)=>{
     try {
         
@@ -46,6 +50,8 @@ const oneCategoryWithQuestions = async (data)=>{
         throw error
     }
 }
+///////TO FETCH ALL CATEGORY AND THEIR QUESTIONS////////
+
 const allCategoriesWithQuestions = async ()=>{
 try {
         const categories = await categoryModel.aggregate([

@@ -78,7 +78,7 @@ const addQuestionsFromCSV = async (file) => {
   }
 };
 
-////FOR BULK OPERATIONS//////
+////FOR ADDING QUESTIONS AND CATEGORIES IN BULK FROM CSV. //////
 
 const addQuestionsInBulk = async (data) => {
     try {
