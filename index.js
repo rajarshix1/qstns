@@ -1,7 +1,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const app = express();
-const usersRouter = require('./routes/user.routes');
+const userRouter = require('./routes/user.routes');
 const categoryRouter = require('./routes/category.routes');
 const questionRouter = require('./routes/question.routes');
 mongoose.connect(process.env.DB_URL, {
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 
 
-v1Router.use('/user', usersRouter);
+v1Router.use('/user', userRouter);
 v1Router.use('/category', categoryRouter);
 v1Router.use('/question', questionRouter);
 

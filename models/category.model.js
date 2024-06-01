@@ -6,6 +6,7 @@ const categorySchema = new mongoose.Schema({
     },
     questionCount: {
         type: Number,
+        default: 0,
     },
     createdAt: {
         type: Date,
