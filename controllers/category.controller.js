@@ -2,16 +2,24 @@ const { default: mongoose } = require("mongoose")
 const categoryModel = require("../models/category.model")
 
 const getAllCategories = async ()=>{
-    const allCategories = await categoryModel.find({})
-    return allCategories
+   try {
+     const allCategories = await categoryModel.find({})
+     return allCategories
+   } catch (error) {
+    throw error
+   }
 }
 const createCategory = async (data)=>{
-    const existing = await categoryModel.findOne({name: data.name})
-    if(existing) throw ({message: "Category already exists"})
-    const newCategory = await categoryModel.create({
-        name: data.name,
-    })
-    return newCategory
+  try {
+      const existing = await categoryModel.findOne({name: data.name})
+      if(existing) throw ({message: "Category already exists"})
+      const newCategory = await categoryModel.create({
+          name: data.name,
+      })
+      return newCategory
+  } catch (error) {
+    throw error
+  }
 }
 
 const oneCategoryWithQuestions = async (data)=>{
@@ -39,17 +47,21 @@ const oneCategoryWithQuestions = async (data)=>{
     }
 }
 const allCategoriesWithQuestions = async ()=>{
-    const categories = await categoryModel.aggregate([
-        {
-            $lookup: {
-                from: "questions",
-                localField: "_id",
-                foreignField: "categoryIds",
-                as: "questions"
+try {
+        const categories = await categoryModel.aggregate([
+            {
+                $lookup: {
+                    from: "questions",
+                    localField: "_id",
+                    foreignField: "categoryIds",
+                    as: "questions"
+                }
             }
-        }
-    ])
-    return categories
+        ])
+        return categories
+} catch (error) {
+ throw error   
+}
 }
 
 module.exports = {getAllCategories, createCategory,allCategoriesWithQuestions, oneCategoryWithQuestions}

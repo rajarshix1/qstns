@@ -20,7 +20,7 @@ const signUp = async (data) => {
         return newUser
     } catch (error) {
         console.log(error)
-        return error
+        throw error
     }   
 }
 
@@ -28,7 +28,8 @@ const login = async (data) => {
 try {
     let existingUser = await userModel.findOne({email: data?.email })
     if(!existingUser) throw new Error(`User not found`)
-    if(bcrypt.compare(existingUser.password, data.password)){
+    const passMatch = await bcrypt.compare(data.password,existingUser.password )
+    if(passMatch){
         existingUser.password = undefined
         const timeStamp = Date.now();
         const sercret =  process.env.JWTSECRET;
@@ -44,7 +45,7 @@ try {
         throw new Error(`Password mismatch`)
     }
 } catch (error) {
-    return error
+    throw error
 }
 }
 

@@ -1,0 +1,343 @@
+{
+	"info": {
+		"_postman_id": "e198df14-df56-460e-9cab-458dd84b65f7",
+		"name": "QstnAnswer",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17972979"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"email\": \"rajarshi@abc.com\",\r\n    \"password\": \"Abcd1234@\",\r\n    \"name\":\"Rajarshi\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/user/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "// {\r\n//     \"email\": \"a@a.com\",\r\n//     \"password\": \"12341\",\r\n// }\r\n{\r\n    \"email\": \"rajarshi@abc.com\",\r\n    \"password\": \"Abcd1234@\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add question with csv",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/C:/Users/rajar/OneDrive/Desktop/abcd.csv"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/question/add-from-csv",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"question",
+						"add-from-csv"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View User details",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWIxYzM5MTY1YjA1ZGI0NzQxMTk0YSIsImNyZWF0ZWRBdCI6MTcxNzI0NzA3ODgxOCwiZXhwaXJlc0F0IjoxNzE5ODM5MDc4ODE4LCJpYXQiOjE3MTcyNDcwNzgsImV4cCI6MTcxOTgzOTA3OH0.bPURGxxiA1isKOQ-R0aiBSXciTpNDDDe_u-d0sSLJug",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/user/get-user-details",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						"get-user-details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update user details",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWIxYzM5MTY1YjA1ZGI0NzQxMTk0YSIsImNyZWF0ZWRBdCI6MTcxNzI0NzA3ODgxOCwiZXhwaXJlc0F0IjoxNzE5ODM5MDc4ODE4LCJpYXQiOjE3MTcyNDcwNzgsImV4cCI6MTcxOTgzOTA3OH0.bPURGxxiA1isKOQ-R0aiBSXciTpNDDDe_u-d0sSLJug",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "name",
+							"value": "Rajarshi Mandal",
+							"type": "text"
+						},
+						{
+							"key": "file",
+							"type": "file",
+							"src": "/E:/register.png"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/user/update-user-details",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"user",
+						"update-user-details"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get all Category and questions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWExODlhNWJkZTcxOGQ1NjY3Mzc0NiIsImNyZWF0ZWRBdCI6MTcxNzE4MjA5NDk2MywiZXhwaXJlc0F0IjoxNzE5Nzc0MDk0OTYzLCJpYXQiOjE3MTcxODIwOTQsImV4cCI6MTcxOTc3NDA5NH0.p285OcYmwcXM4gxHfJTHAOWrnn3s7BZMKYF6ZF4enJA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/category/get-all-with-qstn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"category",
+						"get-all-with-qstn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get single Category and questions",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWExODlhNWJkZTcxOGQ1NjY3Mzc0NiIsImNyZWF0ZWRBdCI6MTcxNzE4MjA5NDk2MywiZXhwaXJlc0F0IjoxNzE5Nzc0MDk0OTYzLCJpYXQiOjE3MTcxODIwOTQsImV4cCI6MTcxOTc3NDA5NH0.p285OcYmwcXM4gxHfJTHAOWrnn3s7BZMKYF6ZF4enJA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Science\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/category/get-one-with-qstn?name=Geography",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"category",
+						"get-one-with-qstn"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Geography"
+						},
+						{
+							"key": "_id",
+							"value": "665b0015e074c7118a08613b",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add category",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWExODlhNWJkZTcxOGQ1NjY3Mzc0NiIsImNyZWF0ZWRBdCI6MTcxNzE4MjA5NDk2MywiZXhwaXJlc0F0IjoxNzE5Nzc0MDk0OTYzLCJpYXQiOjE3MTcxODIwOTQsImV4cCI6MTcxOTc3NDA5NH0.p285OcYmwcXM4gxHfJTHAOWrnn3s7BZMKYF6ZF4enJA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"name\": \"Geology\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/category/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"category",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add a question",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access-token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NWExODlhNWJkZTcxOGQ1NjY3Mzc0NiIsImNyZWF0ZWRBdCI6MTcxNzE4MjA5NDk2MywiZXhwaXJlc0F0IjoxNzE5Nzc0MDk0OTYzLCJpYXQiOjE3MTcxODIwOTQsImV4cCI6MTcxOTc3NDA5NH0.p285OcYmwcXM4gxHfJTHAOWrnn3s7BZMKYF6ZF4enJA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"categoryNames\": [\"Geography\", \"Geology\"],\r\n    \"qstn\": \"What is a Rock?\",\r\n    \"answer\": \"Solid thing\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/v1/question/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"v1",
+						"question",
+						"create"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

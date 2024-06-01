@@ -40,38 +40,42 @@ const addQuestion = async (data) => {
 
 ////ADD QUESTIONS FROM CSV. USES addQuestionsInBulk function///////////////////
 const addQuestionsFromCSV = async (file) => {
-  const questions = [];
-  console.log("file", file);
-
-  return new Promise((resolve, reject) => {
-    const stream = Readable.from(file.buffer);
-
-    stream
-      .pipe(csv())
-      .on("data", (row) => {
-        // console.log(row)
-        const categories = row.categories
-          ? row.categories.split(",").map((cat) => cat.trim())
-          : [];
-        questions.push({
-          qstn: row.qstn,
-          answer: row.answer,
-          categoryNames: categories,
-        });
-      })
-      .on("end", async () => {
-        console.log(questions);
-        try {
-          await addQuestionsInBulk(questions);
-          resolve("Questions added successfully");
-        } catch (error) {
+  try {
+    const questions = [];
+    console.log("file", file);
+  
+    return new Promise((resolve, reject) => {
+      const stream = Readable.from(file.buffer);
+  
+      stream
+        .pipe(csv())
+        .on("data", (row) => {
+          // console.log(row)
+          const categories = row.categories
+            ? row.categories.split(",").map((cat) => cat.trim())
+            : [];
+          questions.push({
+            qstn: row.qstn,
+            answer: row.answer,
+            categoryNames: categories,
+          });
+        })
+        .on("end", async () => {
+          console.log(questions);
+          try {
+            await addQuestionsInBulk(questions);
+            resolve("Questions added successfully");
+          } catch (error) {
+            reject(error);
+          }
+        })
+        .on("error", (error) => {
           reject(error);
-        }
-      })
-      .on("error", (error) => {
-        reject(error);
-      });
-  });
+        });
+    });
+  } catch (error) {
+    throw error
+  }
 };
 
 ////FOR BULK OPERATIONS//////

@@ -9,14 +9,14 @@ const userRouter = express.Router();
 
 userRouter.post("/register", async (req, res) => {
   try {
-    serverResponse(true, "Success", await signUp(req.body), res, 202);
+    serverResponse(true, "Success", await signUp(req.body), res, 200);
   } catch (error) {
     serverResponse(false, "Error", error?.message, res, 400);
   }
 });
 userRouter.post("/login", async (req, res) => {
   try {
-    serverResponse(true, "Success", await login(req.body), res, 202);
+    serverResponse(true, "Success", await login(req.body), res, 200);
   } catch (error) {
     serverResponse(false, "Error", error?.message, res, 400);
   }
@@ -24,14 +24,14 @@ userRouter.post("/login", async (req, res) => {
 
 userRouter.get("/get-user-details", authMiddleware, async (req, res) => {
   try {
-    serverResponse(true, "Success", req?.user, res, 202);
+    serverResponse(true, "Success", req?.user, res, 200);
   } catch (error) {
     serverResponse(false, "Error", "Not authenticated", res, 400);
   }
 });
 userRouter.post("/update-user-details", authMiddleware,uploadFile.single('file'), async (req, res) => {
   try {
-    serverResponse(true, "Success", await updateUser(req.user, req.body, req.file), res, 202);
+    serverResponse(true, "Success", await updateUser(req.user, req.body, req.file), res, 200);
   } catch (error) {
     serverResponse(false, "Error", error?.message, res, 400);
   }

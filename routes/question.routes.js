@@ -16,7 +16,7 @@ questionRouter.post("/add-from-csv", uploadFile.single("file"), async (req, res)
     try {
         console.log("file", req.file)
         
-        serverResponse(true, "Success", await addQuestionsFromCSV(req.file), res, 202);
+        serverResponse(true, "Success", await addQuestionsFromCSV(req.file), res, 200);
       } catch (error) {
         serverResponse(false, "Error", error.message, res, 400);
       }
