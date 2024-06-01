@@ -2,6 +2,8 @@ const categoryModel = require("../models/category.model");
 const questionModel = require("../models/question.model");
 const csv = require("csv-parser");
 const { Readable } = require("stream");
+
+////FOR ADDING A SINGLE QUESTION. FOR TESTING PURPOSES/////////////
 const addQuestion = async (data) => {
   console.log("dddata", data);
   try {
@@ -35,6 +37,8 @@ const addQuestion = async (data) => {
     throw error;
   }
 };
+
+////ADD QUESTIONS FROM CSV. USES addQuestionsInBulk function///////////////////
 const addQuestionsFromCSV = async (file) => {
   const questions = [];
   console.log("file", file);
@@ -58,9 +62,7 @@ const addQuestionsFromCSV = async (file) => {
       .on("end", async () => {
         console.log(questions);
         try {
-          for (const question of questions) {
-            await addQuestion(question);
-          }
+          await addQuestionsInBulk(questions);
           resolve("Questions added successfully");
         } catch (error) {
           reject(error);
@@ -72,4 +74,53 @@ const addQuestionsFromCSV = async (file) => {
   });
 };
 
+////FOR BULK OPERATIONS//////
+
+const addQuestionsInBulk = async (data) => {
+    try {
+      const allCategoryNames = new Set();
+      data.forEach((obj) => {
+        obj.categoryNames.forEach((cat) => allCategoryNames.add(cat));
+      });
+      const categoryNamesArr =  Array.from(allCategoryNames)
+
+      const categories = await Promise.all(
+        categoryNamesArr.map(async (cat) => {
+            const category = await categoryModel.findOne({ name: cat });
+            if (category) return category;
+            else {
+              const category = await categoryModel.create({ name: cat });
+              return category
+            }
+        })
+      );
+      console.log(categories, categoryNamesArr);
+
+        const newQuestions = data.map((obj) => ({
+        qstn: obj.qstn,
+        answer: obj.answer,
+        categoryIds: obj.categoryNames.map((catName) =>
+          categories.find((cat) => cat.name === catName)._id
+        ),
+      }));
+  
+      const insertedQuestions = await questionModel.insertMany(newQuestions);
+      console.log("Inserted" , insertedQuestions);
+      categories.map(async (category) => {
+          const count = insertedQuestions.reduce(
+            (total, question) =>
+              total + (question.categoryIds.includes(category._id) ? 1 : 0),
+            0
+          );
+          await categoryModel.findByIdAndUpdate(category._id, {
+            $inc: { questionCount: count },
+          });
+        })
+
+  
+      return insertedQuestions;
+    } catch (error) {
+      throw error;
+    }
+  };
 module.exports = { addQuestion, addQuestionsFromCSV };
