@@ -11,6 +11,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@aws-sdk/client-s3": "^3.588.0",
+    "@aws-sdk/lib-storage": "^3.588.0",
+    "aws-sdk": "^2.1632.0",
     "bcrypt": "^5.1.1",
     "csv-parser": "^3.0.0",
     "dotenv": "^16.4.5",

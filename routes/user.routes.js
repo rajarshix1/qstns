@@ -1,6 +1,6 @@
 const express = require("express");
 const serverResponse = require("../helpers/serverResponse");
-const { signUp, login } = require("../controllers/user.controller");
+const { signUp, login, updateUser } = require("../controllers/user.controller");
 const authMiddleware = require("../middleware/authMiddleware");
 const multer = require('multer');
 const storage = multer.memoryStorage();
@@ -27,6 +27,13 @@ userRouter.get("/get-user-details", authMiddleware, async (req, res) => {
     serverResponse(true, "Success", req?.user, res, 202);
   } catch (error) {
     serverResponse(false, "Error", "Not authenticated", res, 400);
+  }
+});
+userRouter.post("/update-user-details", authMiddleware,uploadFile.single('file'), async (req, res) => {
+  try {
+    serverResponse(true, "Success", await updateUser(req.user, req.body, req.file), res, 202);
+  } catch (error) {
+    serverResponse(false, "Error", error?.message, res, 400);
   }
 });
 

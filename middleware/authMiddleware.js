@@ -11,6 +11,7 @@ const authMiddleware = async (req, res, next) => {
         const {id, expiresAt} = data;  
         console.log(data)
         const timeStamp = Date.now();
+        console.log(timeStamp)
         if (timeStamp > expiresAt) throw new Error( { message: "Token expired" })
         let user = await userModel.findById(id)
         if(!user) throw new Error ("No user found")

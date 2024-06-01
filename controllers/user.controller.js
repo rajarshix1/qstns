@@ -2,6 +2,7 @@ const userModel = require('../models/user.model')
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const  jwt  = require('jsonwebtoken');
+const awsUpload = require('../helpers/awsUpload');
 const signUp = async (data) => {
     try {
         let existingUser = await userModel.findOne({email: data?.email })
@@ -47,4 +48,22 @@ try {
 }
 }
 
-module.exports = {signUp, login}
+const updateUser = async(user, data, file) => {
+    try {
+        console.log(Object.keys(data).length)
+        if(Object.keys(data).length===0 && !file)  throw new Error("No data provided")
+        const updateQuery = {}
+        if(data.name) updateQuery.name = data.name
+        if(file) {
+            const fileUrl = await awsUpload(file)
+            console.log(fileUrl)
+            updateQuery.image = fileUrl
+        }
+        const updated = await userModel.findByIdAndUpdate(user._id, updateQuery, {new:true})
+        updated.password = undefined
+        return updated
+    } catch (error) {
+        throw error
+    }
+}
+module.exports = {signUp, login, updateUser}
